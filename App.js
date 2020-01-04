@@ -1,114 +1,114 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
+import React, {useState} from 'react'
+import styled from 'styled-components/native'
 
-import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+const Container = styled.SafeAreaView`
+  flex:1;
+  background-color:#E4DBFA;
+`
+const Header = styled.View`
+  width:100%;
+  height:60px;
+  align-items:center;
+  justify-content:center;
+`
+const Title = styled.Text`
+  font-size:28px;
+  font-weight:bold;
+  color:#625E6B;
+`
+const Bodie = styled.View`
+  align-items:center;
+  margin:20px;
+`
+const InputArea = styled.TextInput`
+  width:350px;
+  height:50px;
+  border:1px solid #635470;
+  padding:10px;
+  border-radius:25px;
+  background-color:#fff;
+`
+const Botao = styled.TouchableOpacity`
+  margin:20px;
+  width:200px;
+  height:50px;
+  justify-content:center;
+  align-items:center;
+  border:1px solid #635470;
+  border-radius:25px;
+`
+const ButtonTitle = styled.Text`
+  font-size:16px;
+  color:#635470;
+`
+const TextTop = styled.Text`
+  width:350px;
+  height:70px;
+  text-align:center;
+  margin-bottom:-90px;
+  color:#fff;
+  font-size:22px;
+  z-index:1;
+`
+const AreaImagem = styled.View`
+  width:400px;
+  height:500px;
+  justify-content:center;
+  align-items:center;
+`
+const TextBottom = styled.Text`
+  width:350px;
+  height:70px;
+  text-align:center;
+  margin-top: -80px;
+  color:#fff;
+  font-size:22px;
+  z-index:1;
+`
+const Imagem = styled.Image`
+  width:350px;
+  height:400px;
+  margin:20px;
+`
+const App = () => {
+  const [fraseUm, setFraseUm] = useState('')
+  const [fraseDois, setFraseDois] = useState('')
+  
+  function escrever(t) {
+    setFraseUm(t)
+  }
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+  const criarFrase = () => {
+    let novoTexto = fraseUm.toLowerCase()
 
-const App: () => React$Node = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
-  );
-};
+    novoTexto = novoTexto.replace(/(a|e|i|o|u)/g, 'i')
+    novoTexto = novoTexto.replace(/(á|à|ã|â)/g, 'i')
+    novoTexto = novoTexto.replace(/(é|è|ê)/g, 'i')
+    novoTexto = novoTexto.replace(/(í|ì|î)/g, 'i')
+    novoTexto = novoTexto.replace(/(ó|ò|ô)/g, 'i')
+    novoTexto = novoTexto.replace(/(ú|ù|û)/g, 'i')
 
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
+    setFraseDois(novoTexto)
+  }
 
-export default App;
+  return(
+    <Container>
+        <Header>
+          <Title>Criador de MIMIMI</Title>  
+        </Header>
+        <Bodie>
+          <InputArea placeholder={'Digite sua frase'} onChangeText={escrever}/>
+          <AreaImagem>
+            <TextTop>{fraseUm.toUpperCase()}</TextTop>
+            <Imagem source={require('./src/img/mimimi.jpg')} />
+            <TextBottom>{fraseDois.toUpperCase()}</TextBottom>
+          </AreaImagem>
+          <Botao onPress={criarFrase}>
+            <ButtonTitle>Criar Frase</ButtonTitle>
+          </Botao>
+        </Bodie>
+    </Container>
+  )
+}
+
+export default App
